@@ -1,0 +1,26 @@
+<div class="form-container" >
+    <p>Submit Jobs</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Select file</mat-label>
+        <ngx-mat-file-input formControlName="fill" placeholder="Select file" (change)="onFileChange($event)" accept=".json"></ngx-mat-file-input>
+        <mat-icon matSuffix>folder</mat-icon>
+      </mat-form-field>
+      <button mat-raised-button type="submit" [disabled]="!selectedFile" color="primary" (click)="onSubmit()">Submit</button>
+</div>
+<mat-divider class="home-divider"></mat-divider>
+<div class="div-expansion-panel">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Schedule
+            </mat-panel-title>
+            <mat-panel-description>
+                Job scheduling logic used in DewSimServer
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div *ngIf="schedule">
+            <p>{{ schedule.name }}</p>
+            <p>{{ schedule.description }}</p>
+        </div>
+    </mat-expansion-panel>
+</div>

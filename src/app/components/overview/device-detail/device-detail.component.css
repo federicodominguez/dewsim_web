@@ -1,0 +1,109 @@
+.open-detail {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    overflow: auto;
+}
+
+.detail {
+    padding-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 35%;
+}
+
+.no-wrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-header {
+    padding-top: 10px;
+}
+
+.button-row {
+    display: table-cell;
+  }
+  
+.button-row button {
+    display: table-cell;
+    margin-right: 350px;
+}
+
+.mat-card-detail {
+    min-width: 180px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.animation{
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+}
+  
+.fadeIn{
+    animation-name: fadeIn;
+    -webkit-animation-name: fadeIn;
+}
+
+@keyframes fadeIn {0% {opacity:0}to{opacity: 1}}
+@-webkit-keyframes fadeIn {0% {opacity:0}to{opacity: 1}}
+
+mat-icon.mat-card-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+  }
+  
+.image-container{
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: contain;
+}
+.igx-slide{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    width: unset;
+}
+
+.igx-slide img{
+    object-fit: fill;
+    max-width: 75%;
+}
+
+.igx-carousel{
+    max-width: 100%;
+    width: unset;
+}
+
+.mat-button-div {
+    margin-left:auto; 
+    margin-right:0;
+}
+
+.mat-button-toggle {
+    width: 75px;
+    text-align: center;
+}
+
+.dev-desc {
+    padding-top: 15px;
+    overflow: auto;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.panel-icon {
+    padding-right: 10px;
+}

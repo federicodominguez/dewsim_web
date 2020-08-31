@@ -1,0 +1,61 @@
+<div class="open-detail animation fadeIn" *ngIf="isModal()">
+    <div class="detail" fxLayout="row wrap" fxLayoutAlign="center center">
+        <mat-card class="mat-card-detail" fxLayoutAlign="center center" fxFlex="0 1 calc(20% - 20px)">
+            <mat-card-header class="card-header">
+                <mat-icon mat-card-avatar>devices</mat-icon>
+                <mat-card-title>Device Detail</mat-card-title>
+            </mat-card-header>
+            <div class="carousel-container" *ngIf="device?.dev_front">
+                <igx-carousel #carousel>
+                    <igx-slide *ngFor="let image of device.dev_front;">
+                        <div class="image-container">
+                            <img src="{{url}}{{image}}">
+                        </div>
+                    </igx-slide>
+                </igx-carousel>
+            </div>
+            <mat-card-content>
+                <div class="dev-desc">
+                    {{ device.desc }}
+                </div>
+                <mat-list role="list">
+                    <mat-list-item role="listitem">
+                        <img src="https://img.icons8.com/ios-glyphs/30/000000/ethernet-off.png" />
+                        <span> {{  device.ip  }}</span>
+                    </mat-list-item>
+                    <mat-list-item role="listitem">
+                        <mat-icon>battery_charging_full</mat-icon>
+                        <span>{{ device.batteryLevel + '%' }}</span>
+                    </mat-list-item>
+                </mat-list>
+                <div class="div-expansion-panel">
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon class="panel-icon">info_outline</mat-icon>
+                                more..
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-list role="list" *ngFor="let attr of device.attr">
+                            <mat-list-item role="listitem">{{ attr }}</mat-list-item>
+                          </mat-list>
+                    </mat-expansion-panel>
+                </div>
+            </mat-card-content>
+            <mat-card-actions fxFlexAlign="end">
+                <div class="mat-button-div">
+                    <mat-button-toggle-group  name="fontStyle" aria-label="Font Style">
+                        <mat-button-toggle (click)="closeModal()">
+                            <mat-icon>cancel_outline</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle>
+                            <a mat-icon-button href="https://www.gsmarena.com/" target="_blank">
+                                <mat-icon>help_outline</mat-icon>
+                            </a>
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

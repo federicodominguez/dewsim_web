@@ -1,0 +1,8 @@
+.active-list-item {
+  color: #3F51B5 !important;
+}
+
+.app-sidenav {
+  min-width: 200px;
+  max-width: 100%;
+}
