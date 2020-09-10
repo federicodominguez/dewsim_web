@@ -5,15 +5,24 @@
                 <mat-icon mat-card-avatar>devices</mat-icon>
                 <mat-card-title>Device Detail</mat-card-title>
             </mat-card-header>
-            <div class="carousel-container" *ngIf="device?.dev_front">
+            <div class="carousel-container" *ngIf="device?.dev_front.length > 0; else loggedOut">
                 <igx-carousel #carousel>
                     <igx-slide *ngFor="let image of device.dev_front;">
                         <div class="image-container">
-                            <img src="{{url}}{{image}}">
+                            <img src="{{ url + image }}">
+                        </div>
+                    </igx-slide>
+                </igx-carousel> 
+            </div>
+            <ng-template #loggedOut>
+                <igx-carousel #carousel>
+                    <igx-slide >
+                        <div class="image-container">
+                            <img src="/assets/image.png">
                         </div>
                     </igx-slide>
                 </igx-carousel>
-            </div>
+            </ng-template>
             <mat-card-content>
                 <div class="dev-desc">
                     {{ device.desc }}

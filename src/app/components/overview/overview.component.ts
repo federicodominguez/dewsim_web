@@ -7,10 +7,9 @@ import { DetailService } from 'src/app/services/detail.service';
 import { DeviceService } from 'src/app/services/device.service';
 import { Device } from 'src/app/models/device';
 import { Jobs } from 'src/app/models/jobs';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable, Subscription, timer } from 'rxjs';
 import { TasksByDevice } from 'src/app/models/tasksbydevice';
 import { Task } from 'src/app/models/task';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-overview',
@@ -31,6 +30,11 @@ export class OverviewComponent implements OnInit {
 
   tasksByDevice: TasksByDevice[];
 
+  private timerSubscription: Subscription;
+  private deviceAndJobsSubscription: Subscription;
+
+  url = 'http://localhost:1080/';
+
   public slide = [
     {
       src: "/assets/image.png"
@@ -39,32 +43,20 @@ export class OverviewComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private jobsService: JobService, private deviceService: DeviceService, private detailService: DetailService) {
+  constructor(private jobsService: JobService,
+    private deviceService: DeviceService,
+    private detailService: DetailService) {
+
+  }
+
+  ngOnInit() {
     this.error = false;
     this.errorMessage = '';
 
-    forkJoin([this.jobsService.getJobs(), this.deviceService.getDevices()]).subscribe(result => {
-      this.jobs = result[0];
-      this.devices = result[1];
-      this.tasksByDevice = this.getTasksByDevice(this.jobs, this.devices);
-      this.dataSource = new MatTableDataSource<TasksByDevice>(this.tasksByDevice);
-      this.dataSource.paginator = this.paginator;
-    }, (error => {
-      if (error instanceof HttpErrorResponse) {
-        this.error = true;
-        const err = error.message || JSON.stringify(error.error);
-        this.errorMessage = `${error.statusText || ''} Details: ${err}`;
-      } else {
-        this.error = true;
-        this.errorMessage = error;
-      }
-    })
-    );
+    this.refreshData();
   }
 
-  ngOnInit() { }
-
-  getTasksByDevice = (jobs: Jobs[], devices: Device[]) => {
+  private getTasksByDevice = (jobs: Jobs[], devices: Device[]) => {
     let tasksByDeviceArray: TasksByDevice[];
     tasksByDeviceArray = [];
     for (let jobDevice of jobs) {
@@ -80,8 +72,8 @@ export class OverviewComponent implements OnInit {
     return tasksByDeviceArray;
   }
 
-  getIconBatteryStatus = (device: Device):string => {
-    switch(device.batteryStatus){
+  getIconBatteryStatus = (device: Device): string => {
+    switch (device.batteryStatus) {
       case 'charging_usb': {
         return 'usb';
       }
@@ -93,7 +85,7 @@ export class OverviewComponent implements OnInit {
     }
   }
 
-  getTasks = (jobs: Job[]): Task[] => {
+  private getTasks = (jobs: Job[]): Task[] => {
     let tasks: Task[] = [];
     for (let job of jobs) {
       let taskId = job.task_id;
@@ -187,4 +179,34 @@ export class OverviewComponent implements OnInit {
     return { color: 'primary' };
   }
 
+  setImage = (device: Device): string => {
+    if (device.dev_front.length > 0) {
+      return this.url + device.dev_front[0];
+    }
+    return this.slide[0].src;
+  }
+
+  private refreshData(): void {
+    this.deviceAndJobsSubscription = forkJoin([this.jobsService.getJobs(), this.deviceService.getDevices()]).subscribe(result => {
+      this.jobs = result[0];
+      this.devices = result[1];
+      this.tasksByDevice = this.getTasksByDevice(this.jobs, this.devices);
+      this.dataSource = new MatTableDataSource<TasksByDevice>(this.tasksByDevice);
+      this.dataSource.paginator = this.paginator;
+      this.subscribeToData();
+    }, (error => {
+      if (error instanceof HttpErrorResponse) {
+        this.error = true;
+        const err = error.message || JSON.stringify(error.error);
+        this.errorMessage = `${error.statusText || ''} Details: ${err}`;
+      } else {
+        this.error = true;
+        this.errorMessage = error;
+      }
+    }));
+  }
+
+  private subscribeToData(): void {
+    this.timerSubscription = timer(5000).subscribe(() => this.refreshData()); 
+  }
 }

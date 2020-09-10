@@ -41,7 +41,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   getTaskProgress = (): number => {
-    console.log(this.task);
     let finishedJobs: number;
     finishedJobs = 0;
     this.task.jobs.forEach(job => {

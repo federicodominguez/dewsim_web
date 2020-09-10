@@ -6,10 +6,12 @@
     width: 100%;
     height: 100%;
     z-index: 1000;
+    overflow: auto;
 }
 
 .card-detail {
-    padding-top: 100px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     margin-left: auto;
     margin-right: auto;
     width: 50%;

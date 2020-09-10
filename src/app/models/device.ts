@@ -18,7 +18,7 @@ export class Device {
 })
 export class DeviceAdapter implements Adapter<Device> {
     adapt = (item: any): Device => {
-        let dev_front: string[];
+        let dev_front: string[] = [];
         let batteryStatus: string;
         if(item.attrNames.includes('dev_front')){
             let index: number = item.attrNames.indexOf('dev_front');

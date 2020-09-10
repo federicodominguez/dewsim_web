@@ -44,6 +44,7 @@ table {
 }
 
 .mat-ripple-container {
+  position: relative;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: auto;
@@ -51,15 +52,32 @@ table {
   width: 21em
 }
 
+.attr {
+  position: absolute;
+  padding-top: 10px;
+  margin-left: auto;
+  justify-self: center;
+}
+
 .responsive {
-  max-width: 250px;
+  max-width: 150px;
   width: 100%;
   height: auto;
+  justify-self: center;
+  padding-top: 45px;
+  margin-bottom: 25px;
+}
+
+.battery-level{
+  position: absolute; 
+  bottom: 0;
+  right: 15px;
+  padding-bottom: 45px; 
 }
 
 .ripple-icon {
   position: absolute; 
   bottom: 0;
   right: 15px;
-  padding-bottom: 10px; 
+  padding-bottom: 15px; 
 }
