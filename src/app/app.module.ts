@@ -10,6 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { DeviceService } from './services/device.service';
+import { ScheduleService } from './services/schedule.service';
+import { JobService } from './services/job.service';
+import { DetailService } from './services/detail.service';
 import { MatTableModule, MatPaginatorModule, MatFormFieldModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
@@ -65,7 +68,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
     
   ],
-  providers: [DeviceService],
+  providers: [DeviceService, JobService, ScheduleService, DetailService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

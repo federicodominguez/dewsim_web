@@ -33,6 +33,7 @@ export class JobService {
   submitJob = (newJobFile: FormData): Observable<any> => {
     let submitter: string;
     submitter = window.navigator.appCodeName + window.navigator.platform;
+    console.log(newJobFile);
     return this.http.post(this.URL_API + '/' + submitter, newJobFile)
     .pipe(map (data => {
       console.log(data);
